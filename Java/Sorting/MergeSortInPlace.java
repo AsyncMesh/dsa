@@ -1,3 +1,5 @@
+package Sorting;
+
 import java.util.Arrays;
 
 //Not a complete Inplace because we are creating one arr in each merging
