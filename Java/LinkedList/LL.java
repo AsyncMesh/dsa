@@ -39,7 +39,7 @@ public class LL {
             throw new ArrayIndexOutOfBoundsException();
         }
         Node temp=head;
-        Node node =new Node(val,temp.next);
+        Node node =new Node(val);
 
         if(index==0){
             insertFirst(val);
@@ -53,7 +53,7 @@ public class LL {
         for(int i=0;i<index-1;i++){
             temp=temp.next;
         }
-        node=temp.next;
+        node.next=temp.next;
         temp.next=node;
         size++;
     }
@@ -158,23 +158,23 @@ public class LL {
         head=mergeSort(head);
     }
 
-    private Node merge(Node listNode1,Node listNode2){
+    private Node merge(Node Node1,Node Node2){
         Node dummyHead=new Node(0);
         Node tail=dummyHead;
-        while(listNode1!=null && listNode2!=null){
-            if(listNode1.val>=listNode2.val){
-                tail.next=listNode2;
+        while(Node1!=null && Node2!=null){
+            if(Node1.val>=Node2.val){
+                tail.next=Node2;
                 tail=tail.next;
-                listNode2=listNode2.next;
+                Node2=Node2.next;
             }else{
-                tail.next=listNode1;
+                tail.next=Node1;
                 tail=tail.next;
-                listNode1=listNode1.next;
+                Node1=Node1.next;
             }
         }
 
-        if(listNode1!=null) tail.next=listNode1;
-        if(listNode2!=null) tail.next=listNode2;
+        if(Node1!=null) tail.next=Node1;
+        if(Node2!=null) tail.next=Node2;
 
         return dummyHead.next;
 
@@ -203,6 +203,46 @@ public class LL {
             fast = fast.next.next;
         }
         return slow;
+    }
+
+    public void doubleNum(){
+        head=doubleIt(head);
+    }
+    private Node doubleIt(Node head) {
+        int num = 0;
+        Node temp = head;
+
+        while (temp != null) {
+            int value = temp.val;
+            num = (num * 10) + value;
+
+            temp = temp.next;
+        }
+
+        doubleNumber(num*2);
+
+        return this.head;
+
+    }
+
+    private Node doubleNumber(int num) {
+        if (num == 0) {
+            return null;
+        }
+        int value = num % 10;
+        num = num / 10;
+
+        Node nex = doubleNumber(num);
+        Node prev = new Node(value);
+        if(nex!=null){
+            nex.next = prev;
+            return prev;
+
+        }else{
+            head=prev;
+        }
+
+        return head;
     }
 
     private class Node{
